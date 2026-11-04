@@ -34,5 +34,13 @@ class Appointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    PAYMENT_STATUS = (
+        ('unpaid', 'پرداخت نشده'),
+        ('paid', 'پرداخت شده'),
+    )
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_STATUS, default='unpaid', verbose_name='وضعیت پرداخت')
+
+
     def __str__(self):
         return f"{self.patient.username} - {self.doctor} - {self.appointment_time}"
+

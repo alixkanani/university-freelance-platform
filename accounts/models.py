@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # رفع خطای تداخل با مدل پیش‌فرض جنگو
+
     groups = models.ManyToManyField('auth.Group', related_name='custom_user_groups', blank=True)
     user_permissions = models.ManyToManyField('auth.Permission', related_name='custom_user_permissions', blank=True)
 
@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
         return f"{self.username} ({self.get_role_display()})"
 
 
-# کلاس Patient (ارث‌بری از User)
+
 class Patient(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name='کاربر')
     national_id = models.CharField(max_length=10, unique=True, verbose_name='کد ملی')
@@ -34,8 +34,7 @@ class Patient(models.Model):
         return f"بیمار: {self.user.first_name} {self.user.last_name}"
 
 
-# کلاس Secretary (منشی - ارث‌بری از User)
-# نکته: این کلاس به Clinic وصل میشه که در اپ clinics تعریف میشه
+
 class Secretary(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name='کاربر')
     clinic = models.ForeignKey('clinics.Clinic', on_delete=models.SET_NULL, null=True, verbose_name='مطب')
